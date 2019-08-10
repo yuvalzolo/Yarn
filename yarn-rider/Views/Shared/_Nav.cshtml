@@ -1,0 +1,181 @@
+@using yarn_rider.Models
+
+<div class="container-fluid bg-secondary">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg bg-secondary navbar-dark pt-3 pb-3">
+
+
+            <!-- LOGO -->
+            <a class="navbar-brand mr-5" href="@Url.Action("Index", "Home")">
+                <img class="img-fluid" alt="yarn" src="~/Images/logo0.5.svg">
+            </a>
+
+
+            <!-- MENU COLLAPSE (for small devices) -->
+            <button id="profileMenuButton" class="navbar-toggler" data-toggle="collapse" data-target="#menuShrink">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="menuShrink">
+                <ul class="navbar-nav" id="ttt">
+
+
+                    <!-- BROWSE -->
+                    <li class="nav-item mr-2">
+                        <a href="@Url.Action("Index", "Movie")">
+                            <div class="btn btn-grey">
+                                Browse
+                            </div>
+                        </a>
+                    </li>
+
+                    <!-- SEARCH -->
+                    <li class="nav-item">
+
+                        @using (Html.BeginForm("Index", "Movie", FormMethod.Get))
+                        {
+                            <div class="input-group">
+                                @Html.TextBox("searchString", null, new {placeholder = "Search Movie", @class = "form-control"})
+                                @* <input type="submit" value="search"/> *@
+
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon1" style="color:#52525b">
+                                        <i class="fas fa-search">
+                                        </i>
+                                    </span>
+                                </div>
+                            </div>
+                        }
+
+                    </li>
+
+                </ul>
+
+                <!-- PROFILE -->
+
+                @if (Session["currentUser"] != null)
+                {
+
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="dropdown ml-auto">
+
+                            @{
+                                User currentUser = (User) Session["currentUser"];
+                            }
+
+                            <button type="button" class="btn btn-secondary pl-0 py-0" style="color: #8e8f9e;"
+                                    id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                    data-offset="10,20">
+
+                                <img style="width: 2.5rem;" src="@currentUser.Avatar"
+                                     alt="Generic placeholder image">
+
+                                <i class="fas fa-caret-down pl-1"></i>
+
+                            </button>
+
+                            <div id="profileMenuDropDown" class="dropdown-menu bg-grey mt-2" aria-labelledby="dropdownMenuOffset">
+
+                                <span class="dropdown-item text-link">
+                                    <i class="fas fa-address-card mr-2"></i>
+                                    @Html.ActionLink("Profile", "Details", "User", routeValues: new {id = currentUser.UserID}, htmlAttributes: new
+                                    {
+                                        title = "Manage", @class = ""
+                                    })
+                                </span>
+
+                                <span class="dropdown-item text-link">
+                                    <i class="fas fa-star-half-alt"></i>
+                                    @Html.ActionLink("My Reviews", "Reviews", "User", routeValues: new {id = currentUser.UserID}, htmlAttributes: new
+                                    {
+                                        title = "Manage", @class = ""
+                                    })
+                                </span>
+
+                                @* <a class="dropdown-item text-grey" href="#">My Favorites</a> *@
+
+
+                                <!-- Admins Extra Tools -->
+                                @{
+                                    if (currentUser.Admin)
+                                    {
+                                        <div class="dropdown-divider"></div>
+                                        <h6 class="dropdown-header" style="color: #5d61a7;">Manage Database</h6>
+
+                                        <span class="dropdown-item text-link">
+                                            <i class="fas fa-wrench mr-2"></i>
+                                            @Html.ActionLink("Manage Users", "Index", "User", routeValues: null, htmlAttributes: new {title = "Manage Users", style = "color:inherit", @class = ""})
+                                        </span>
+
+                                        <span class="dropdown-item text-link">
+                                            <i class="fas fa-wrench mr-2 "></i>
+                                            @Html.ActionLink("Manage Movies", "Index", "Movie", routeValues: null, htmlAttributes: new {title = "Manage Movies", style = "color:inherit", @class = ""})
+                                        </span>
+
+                                        <span class="dropdown-item text-link">
+                                            <i class="fas fa-wrench mr-2 "></i>
+                                            @Html.ActionLink("Manage Reviews", "Index", "Review", routeValues: null, htmlAttributes: new {title = "Manage Reviews", style = "color:inherit", @class = ""})
+                                        </span>
+
+                                        <div class="dropdown-divider"></div>
+                                        <h6 class="dropdown-header" style="color: #5d61a7;">Read Data</h6>
+
+                                        <span class="dropdown-item text-link">
+                                            <i class="fas fa-chart-bar mr-2 "></i>
+                                            @Html.ActionLink("DB Statistics", "Statistics", "Home", routeValues: null, htmlAttributes: new {title = "Statistics", style = "color:inherit", @class = ""})
+                                        </span>
+
+                                        <span class="dropdown-item text-link">
+                                            <i class="fas fa-table mr-2"></i>
+                                            @Html.ActionLink("DB Records", "Records", "Home", routeValues: null, htmlAttributes: new {title = "Records", style = "color:inherit", @class = ""})
+                                        </span>
+
+                                        <div class="dropdown-divider"></div>
+                                        <h6 class="dropdown-header" style="color: #5d61a7;">Other</h6>
+
+                                        <span class="dropdown-item text-link">
+                                            <i class="fab fa-twitter mr-2"></i>
+                                            @Html.ActionLink("Tweet to @yarn", "Share", "Home", routeValues: null, htmlAttributes: new {title = "Share new post", style = "color:inherit", @class = ""})
+                                        </span>
+                                    }
+                                }
+
+                                <div class="dropdown-divider"></div>
+
+                                @Html.ActionLink("Sign Out", "Logout", "Account", routeValues: null, htmlAttributes: new {title = "Sign Out", style = "", @class = "dropdown-item text-grey"})
+
+
+                            </div>
+                        </div>
+                    }
+                }
+
+                else
+                {
+                    <ul class="nav navbar-nav ml-auto">
+                        <li>
+                            @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new
+                            {
+                                id =
+                                    "loginLink"
+                            })
+                        </li>
+                    </ul>
+                }
+
+
+            </div>
+        </nav>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+
+<script>
+    $(function() {
+        $("#dropdownMenuOffset").on('click', function() {
+            $("#profileMenuDropDown").slideToggle(300);
+        });
+    });
+</script>

@@ -1,0 +1,150 @@
+@using System.Globalization
+@using yarn_rider.Models
+@model IEnumerable<yarn_rider.Models.User>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Canvas -->
+
+<canvas id="myCanvas" width="500" height="25"></canvas>
+<script>
+    var canvas = document.getElementById('myCanvas'); 
+    var ctx = canvas.getContext('2d'); 
+    
+	ctx.font = '1.8rem Rubik';
+        ctx.fillStyle = '#8e8f9e';
+        ctx.fillText('yarners', 0, 20);
+</script>
+
+<hr/>
+
+<!-- search by username -->
+
+@using (Html.BeginForm("Index", "User", FormMethod.Get))
+{
+    <div class="form-group row justify-content-between">
+
+        <div class="input-group col-3">
+            @Html.TextBox("usernameKeyword", null, new {placeholder = "Enter Username", @class = "form-control"})
+
+            <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon1" style="color:#52525b">
+                    <i class="fas fa-search">
+                    </i>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+}
+
+<hr/>
+
+
+<div class="card bg-secondary" style="border:none;">
+    <table class="table table-borderless bg-primary">
+
+        <thead >
+        <tr style="font-size: 0.8rem ;">
+            <th scope="col">#</th>
+            <th >Avatar</th>
+            <th>Username</th>
+            <th>EmailID</th>
+            <th>Country</th>
+            <th>Reviews</th>
+            <th>Manage</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        @{
+            int counter2 = 1;
+        }
+
+        @foreach (var user in Model)
+        {
+            <tr class="text-regular bg-secondary">
+                <th class="align-middle" scope="row">@counter2</th>
+                <td class="align-middle">
+                    <img src="@user.Avatar" style="width: 2.5rem;"/>
+                </td>
+                <td class="align-middle">
+                    @user.UserName
+                </td>
+                <td class="align-middle">
+                    @user.EmailID
+                </td>
+                <td class="align-middle">
+                    @user.Country
+                </td>
+                <td class="align-middle">
+                    <b>@user.Reviews.Count</b>
+                </td>
+                <td class="align-middle">
+
+                    <a href="@Url.Action("Details", "User", new {id = user.UserID})" class="mr-2">
+                        <div class="btn btn-admin text-right">
+                            <i class="fas fa-pen"></i>
+                        </div>
+                    </a>
+
+                    <a href="@Url.Action("Delete", "User", new {id = user.UserID})" class="mr-2">
+                        <div class="btn btn-admin text-right">
+                            <i class="fas fa-trash"></i>
+                        </div>
+                    </a>
+                </td>
+            </tr>
+
+            counter2++;
+        }
+
+        </tbody>
+    </table>
+</div>
+
+
+<hr/>
+<div class="container no-gutters">
+    <div class="row no-gutters">
+        <div class="col">
+            <div class="row">
+
+                <span class="mr-2"><b>yarners Grouped By Countries:</b> </span>
+
+                @{
+                    SiteDbContext db = new SiteDbContext();
+                    var users = db.Users.GroupBy(u => u.Country);
+                    foreach (var u in users)
+                    {
+                        <span class="mr-3">
+                            
+                                @u.Key
+                            
+                            <span class="pr-1"></span>
+
+                            @u.Count(),
+                        </span>
+                    }
+                }
+
+            </div>
+
+            <div class="row">
+                <span><b>Total:</b> &nbsp; @db.Users.Count()</span>
+            </div>
+
+        </div>
+
+        <a href="@Url.Action("Locations", "Home")" class="mr-2">
+            <div class="btn btn-grey col text-right">
+                <i class="fas fa-map-marker-alt pr-2"></i>Map Visualization
+            </div>
+        </a>
+
+    </div>
+</div>

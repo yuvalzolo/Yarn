@@ -1,0 +1,189 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+/*input,*/
+/*  select,*/
+/*  textarea {*/
+/*    max-width: 280px;*/
+/*  }*/
+
+html, body {
+    /*height: 100%;*/
+    margin:0;
+    padding:0;
+    height:100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    
+}
+.content {
+    margin-top: auto
+}
+.footer {
+    flex-shrink: 0;
+}
+
+/*  --------------------------------------------  */
+/*  BACKGROUND-IMAGE  */
+/*  --------------------------------------------  */
+
+.landingPage-image {
+    position: relative;
+    background: #23242c;
+    /*overflow: hidden;*/
+    /*height: 100vh;*/
+    z-index: 0;
+}
+
+.landingPage-image:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.4;
+    /*background-image: url('../Images/LP_WP_1.jpg');*/
+    background-image: url('https://image.tmdb.org/t/p/original/v4yVTbbl8dE1UP2dWu5CLyaXOku.jpg');
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+    background-size: cover;
+}
+
+.btn-primary-landingPage {
+    color: #fff;
+    background-color: #3c4489;
+    border: 3px solid #3c4489;
+}
+
+.btn-primary-landingPage:hover {
+    background-color: #505794;
+    border: 3px solid #505794;
+    transition: all 0.2s ease;
+}
+
+.btn-facebook-landingPage {
+    color: #fff;
+    border: 3px solid #3c4489;
+    background-color: none;
+}
+
+.btn-facebook-landingPage:hover {
+    background-color: #2e5ca9;
+    border: 3px solid #2e5ca9;
+    transition: all 0.2s ease;
+}
+
+.alert-costume {
+    color: #8d8e9d;
+    background-color: #1c1d23;
+}
+
+.text-link {
+    color: #8d8e9d;
+    transition: all 0.2s ease;
+}
+
+.text-link:hover {
+    color: #6d7cf3;
+}
+
+.text-regular {
+    color: #646574;
+}
+
+.btn-grey {
+    color: #8e8f9e;
+    box-shadow: inset 0 0 0 2px #373842;
+}
+
+.btn-twitter {
+    color: #1da1f2;
+    box-shadow: inset 0 0 0 2px #12426f;
+}
+
+.btn-twitter:hover {
+    color: #6d7cf3;
+    box-shadow: inset 0 0 0 2px #3f499f;
+    background: none;
+}
+
+.btn-danger {
+    color: #c8333d;
+    box-shadow: inset 0 0 0 2px #7a242c;
+}
+
+.btn-danger:hover {
+    color: #6d7cf3;
+    box-shadow: inset 0 0 0 2px #3f499f;
+    background: none;
+}
+
+
+.btn-grey:hover {
+    color: #6d7cf3;
+    box-shadow: inset 0 0 0 2px #3f499f;
+    background: none;
+}
+
+.btn-admin {
+    color: #907f62;
+    box-shadow: inset 0 0 0 2px #423e37;
+}
+
+.btn-admin:hover {
+    color: #6d7cf3;
+    box-shadow: inset 0 0 0 2px #3f499f;
+    background: none;
+}
+
+a{
+    color: #8e8f9e!important;
+}
+
+a:hover {
+   color:#6d7cf3!important;
+}
+
+
+.ratingCircle {
+    display: inline-block;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    line-height: 3rem;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: inset 0 0 0 2px #3f499f;
+}
+
+/*.card-columns {*/
+/*@include media-breakpoint-only(lg) {*/
+/*    column-count: 4;*/
+/*}*/
+/*@include media-breakpoint-only(xl) {*/
+/*    column-count: 5;*/
+/*}*/
+/*}*/
+

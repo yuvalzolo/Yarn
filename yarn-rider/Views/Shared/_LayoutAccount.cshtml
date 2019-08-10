@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>yarn - @ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+
+<body class="p-0 m-0" style="font-family:Rubik; color:#8e8f9e">
+
+
+<div class="landingPage-image" style="flex: 1 0 auto;">
+    <div class="container position-relative">
+        @RenderBody()
+    </div>
+</div>
+
+<!-- ------------------------------------ -->
+<!-- FOOTER -->
+<!-- ------------------------------------ -->
+
+@Html.Partial("_Footer")
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
+</body>
+</html>
